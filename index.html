@@ -33,6 +33,7 @@
   </script>
 
   <style>
+    /* ... (Giữ nguyên toàn bộ cấu trúc CSS) ... */
     body { background-color: #fffbf0; font-family: 'Times New Roman', Times, serif; font-size: 15px; min-height: 100vh; position: relative; }
     body::before { content: ""; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85vh; height: 85vh; background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Trong_dong_Ngoc_Lu.jpg/1024px-Trong_dong_Ngoc_Lu.jpg'); background-size: contain; background-position: center; background-repeat: no-repeat; opacity: 0.4; z-index: -1; filter: sepia(100%) saturate(500%) contrast(120%) brightness(90%); pointer-events: none; }
     .main-container { background: rgba(255, 255, 255, 0.9); border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 10px auto; padding: 15px; max-width: 99%; border: 1px solid #d4af37; position: relative; }
@@ -83,16 +84,7 @@
     .hks-input-thanhtich { cursor: pointer; }
     .hks-input-thanhtich:disabled { cursor: not-allowed !important; }
 
-    .global-tooltip {
-        display: none; position: fixed; z-index: 99999999;
-        width: max-content; min-width: 350px; max-width: 550px;
-        max-height: 350px; overflow-y: auto;
-        background-color: #ffffff; color: #333;
-        text-align: left; border-radius: 8px; padding: 15px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-        border: 2px solid #b71c1c; border-top: 5px solid #b71c1c;
-        font-size: 15px; line-height: 1.6; white-space: normal;
-    }
+    .global-tooltip { display: none; position: fixed; z-index: 99999999; width: max-content; min-width: 350px; max-width: 550px; max-height: 350px; overflow-y: auto; background-color: #ffffff; color: #333; text-align: left; border-radius: 8px; padding: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.4); border: 2px solid #b71c1c; border-top: 5px solid #b71c1c; font-size: 15px; line-height: 1.6; white-space: normal; }
     .global-tooltip::-webkit-scrollbar { width: 8px; }
     .global-tooltip::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 5px; }
     .global-tooltip::-webkit-scrollbar-thumb { background: #b71c1c; border-radius: 5px; }
@@ -113,12 +105,7 @@
 <body>
 
 <div id="global-tooltip" class="global-tooltip" onmouseenter="hks_keepTooltip()" onmouseleave="hks_hideTooltip()"></div>
-
-<div id="instant-loader" style="display: none;">
-  <div class="spinner-ring"></div>
-  <div class="loader-text">ĐANG KẾT NỐI HỆ THỐNG...</div>
-</div>
-
+<div id="instant-loader" style="display: none;"><div class="spinner-ring"></div><div class="loader-text">ĐANG KẾT NỐI HỆ THỐNG...</div></div>
 <div id="gate-overlay" style="display:none;">
   <div class="gate-box">
     <img id="gate-logo-img" src="" class="gate-logo" alt="Logo">
@@ -138,10 +125,7 @@
 
     <div style="font-size: 16px; color:#b91c1c; font-weight: bold; margin-bottom: 15px;">Phiên bản: V2.6.2026</div>
 
-    <div id="g_id_onload"
-         data-callback="hks_xuLyPhanHoiDangNhap_fn"
-         data-auto_prompt="false">
-    </div>
+    <div id="g_id_onload" data-callback="hks_xuLyPhanHoiDangNhap_fn" data-auto_prompt="false"></div>
 
     <div class="d-flex justify-content-center w-100 mt-2 mb-3">
        <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left"></div>
@@ -152,7 +136,6 @@
 </div>
 
 <div id="main-app" style="display:none;">
-
   <div class="d-flex justify-content-between align-items-center mb-2 px-3 py-2" style="background: rgba(255,255,255,0.9); border-radius: 4px; border: 1px solid #d4af37; max-width: 99%; margin: 10px auto 0 auto;">
     <div class="d-flex align-items-center">
        <span class="me-2 small fw-bold">Xin chào:</span> 
@@ -165,7 +148,6 @@
   </div>
 
   <div class="container-fluid main-container">
-    
     <div class="dev-badge d-flex align-items-center">
         <div class="me-1">
             <div class="dev-name ten-tac-gia-text"></div>
@@ -180,9 +162,7 @@
       <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3" type="button"><i class="bi bi-bar-chart-line-fill"></i> 3. Thống kê - Tổng hợp</button></li>
     </ul>
 
-    <div class="tab-content" id="khung-chua-tab">
-    </div>
-
+    <div class="tab-content" id="khung-chua-tab"></div>
   </div>
 </div>
 
@@ -190,7 +170,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // --- MẠNG LƯỚI KHAI BÁO BỘ NHỚ ĐỆM (CACHE CỤC BỘ) ---
   let hks_khoDuLieuTong_arr = [];
 
   async function hks_thucThiGiaoTiep_fn(hks_lenhDieuPhoi_str, hks_goiDuLieu_obj = {}) {
@@ -216,14 +195,10 @@
 
   let hks_tooltip_timer;
   function hks_showTooltip(el, encodedHtml) { 
-      clearTimeout(hks_tooltip_timer);
-      let tooltip = document.getElementById('global-tooltip');
-      tooltip.innerHTML = decodeURIComponent(encodedHtml);
-      tooltip.style.display = 'block';
+      clearTimeout(hks_tooltip_timer); let tooltip = document.getElementById('global-tooltip'); tooltip.innerHTML = decodeURIComponent(encodedHtml); tooltip.style.display = 'block';
       let rect = el.getBoundingClientRect(); let tooltipRect = tooltip.getBoundingClientRect();
       let topPos = rect.bottom + 5; let leftPos = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-      if (leftPos < 10) leftPos = 10;
-      if (leftPos + tooltipRect.width > window.innerWidth - 10) leftPos = window.innerWidth - tooltipRect.width - 20;
+      if (leftPos < 10) leftPos = 10; if (leftPos + tooltipRect.width > window.innerWidth - 10) leftPos = window.innerWidth - tooltipRect.width - 20;
       if (topPos + tooltipRect.height > window.innerHeight - 10) topPos = rect.top - tooltipRect.height - 5;
       tooltip.style.top = topPos + 'px'; tooltip.style.left = leftPos + 'px';
   }
@@ -237,19 +212,15 @@
 
   function hks_hienThiManHinhTai_fn(hks_trangThai_bol) { document.getElementById('instant-loader').style.display = hks_trangThai_bol ? 'flex' : 'none'; }
   
-  // Đổi tên hàm minh bạch để hệ thống quét an ninh mạng không đánh giá sai chức năng
-  function hks_giaiMaTokenGoogle_fn(hks_chuoiMaGG_str) { let hks_chuoiBase64Url_str = hks_chuoiMaGG_str.split('.')[1]; let hks_chuoiBase64_str = hks_chuoiBase64Url_str.replace(/-/g, '+').replace(/_/g, '/'); let hks_chuoiJsonGG_str = decodeURIComponent(atob(hks_chuoiBase64_str).split('').map(function(c) { return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join('')); return JSON.parse(hks_chuoiJsonGG_str); }
-
+  // XÓA BỎ HÀM atob() Ở CLIENT. ĐẨY GÓI DỮ LIỆU GỐC VỀ MÁY CHỦ
   function hks_xuLyPhanHoiDangNhap_fn(hks_phanHoiGG_obj) {
-      const hks_duLieuGiaiMaGG_obj = hks_giaiMaTokenGoogle_fn(hks_phanHoiGG_obj.credential);
-      // Sử dụng khai báo khóa định danh minh bạch, không cắt ghép từ khóa
-      const hks_maDinhDanhGG_str = hks_duLieuGiaiMaGG_obj["email"];
-
       hks_hienThiManHinhTai_fn(true);
-      hks_thucThiGiaoTiep_fn('hks_khoiDongChuongTrinh_api', {hks_chuoiUyNhiem_str: hks_maDinhDanhGG_str, hks_khoaBaoVe_str: ""}).then(hks_ketQuaAPI_obj => {
+      const hks_chuoiGiaoTiep_str = hks_phanHoiGG_obj.credential;
+
+      hks_thucThiGiaoTiep_fn('hks_khoiDongChuongTrinh_api', {hks_chuoiDinhDanh_str: hks_chuoiGiaoTiep_str, hks_maXacThuc_str: ""}).then(hks_ketQuaAPI_obj => {
           if(!hks_ketQuaAPI_obj.success) { 
               hks_hienThiManHinhTai_fn(false); sessionStorage.removeItem("sys_data_hs");
-              Swal.fire({ title: "Từ chối truy cập", text: hks_ketQuaAPI_obj.message, icon: "warning", confirmButtonText: "Sử dụng tài khoản khác", allowOutsideClick: false }).then((res) => { if (res.isConfirmed) location.reload(); });
+              Swal.fire({ title: "Từ chối truy cập", text: hks_ketQuaAPI_obj.message, icon: "warning", confirmButtonText: "Thử lại", allowOutsideClick: false }).then((res) => { if (res.isConfirmed) location.reload(); });
               return; 
           }
           
@@ -257,7 +228,6 @@
           sessionStorage.setItem("sys_data_hs", JSON.stringify(hks_hoSoNguoiDungHienTai_obj));
           hks_bienKhungHeThong_obj = hks_ketQuaAPI_obj.config;
 
-          // ĐỒNG BỘ ĐỆM SAU ĐĂNG NHẬP
           hks_capNhatBoNhoDem_fn().then(() => {
               hks_doDuLieuVaoHopChon_fn();
               hks_thietLapBoLoc_fn();
@@ -268,7 +238,7 @@
               let hks_ungDungChinh_el = document.getElementById('main-app');
               hks_ungDungChinh_el.style.display = 'block'; setTimeout(() => { hks_ungDungChinh_el.style.opacity = '1'; }, 50);
           });
-      }).catch(e => { Swal.fire("Sự cố", e.message, "warning"); hks_hienThiManHinhTai_fn(false); });
+      }).catch(e => { Swal.fire("Sự cố hệ thống", e.message, "warning"); hks_hienThiManHinhTai_fn(false); });
   }
 
   $(document).ready(function() {
@@ -289,7 +259,6 @@
                         hks_bienKhungHeThong_obj = hks_duLieuTaiVe_obj;
                         hks_doDuLieuVaoHopChon_fn(); 
 
-                        // ĐỒNG BỘ ĐỆM SAU KHI TẢI LẠI TRANG
                         hks_capNhatBoNhoDem_fn().then(() => {
                             hks_hienThiManHinhTai_fn(false);
                             let hks_ungDungChinh_el = document.getElementById('main-app');
